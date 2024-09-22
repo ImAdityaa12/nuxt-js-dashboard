@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Chart from "~/components/Chart.vue";
+import Card from "~/components/Card.vue";
 let data = ref([5.2, 5.7, 8.7, 13.9, 18.2, 21.4, 25.0, 22.8, 17.5, 12.1, 7.6]);
 let currentCategory = ref("today");
 const list = [
@@ -158,6 +159,32 @@ function generateRandomValue(number = 7) {
 onMounted(() => {
   generateRandomValue(23);
 });
+const cards = [
+  {
+    title: "Sales",
+    progression: 12,
+    amount: 1244.43,
+    label: "View sales",
+    description: "Sales of March 2024",
+    icon: "solar:ticket-sale-outline",
+  },
+  {
+    title: "Refunds",
+    progression: 8,
+    amount: 84.44,
+    label: "View refunds",
+    description: "Refunds since beginning of year",
+    icon: "heroicons-outline:receipt-refund",
+  },
+  {
+    title: "Payouts",
+    progression: 14,
+    amount: 899.99,
+    label: "View payouts",
+    description: "Payouts of this week",
+    icon: "tabler:zoom-money",
+  },
+];
 const setCategory = (e: any) => {
   currentCategory.value = e.target.innerText.toLowerCase();
   switch (e.target.innerText.toLowerCase()) {
@@ -179,7 +206,7 @@ const setCategory = (e: any) => {
 };
 </script>
 <template>
-  <div class="grid gap-4">
+  <div class="grid gap-4 min-h-screen">
     <header class="flex items-start justify-between">
       <div class="grow">
         <p>Hi, welcome back User!</p>
@@ -206,9 +233,10 @@ const setCategory = (e: any) => {
           />
         </TabsContent>
       </Tabs>
-      <!-- <div>Tabs: Today This week This month This year</div>
-      <section>Chart</section> -->
     </main>
-    <footer>I'll have 3 different cards</footer>
+
+    <div class="grid gap-4 lg:grid-cols-3">
+      <Card v-for="(item, index) in cards" :card="item" :key="index" />
+    </div>
   </div>
 </template>
